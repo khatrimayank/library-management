@@ -84,7 +84,7 @@ public class UserDetails {
 	
 	public UserDetails(String name, String mobile_no, String role) {
 		this.name = name;
-		this.mobile_number = mobile_number;
+		this.mobileNumber = mobile_no;
 		this.role = role;
 	}
 }

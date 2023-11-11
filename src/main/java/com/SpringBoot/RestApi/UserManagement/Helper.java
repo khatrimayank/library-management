@@ -6,22 +6,19 @@ import java.security.SecureRandom;
 
 public class Helper {
 	
-	public static int randomOtpGenerator() {
-		
-		Random random = new Random();
+	public static int randomOtpGenerator(int size) {
+        // Ensure that the size is within a valid range
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size must be a positive integer");
+        }
 
-	    // Generate a 6-digit random number
-	    
-		int min = 100000; // Smallest 6-digit number
-	    
-		int max = 999999; // Largest 6-digit number
-	    
-		int randomNumber = random.nextInt(max - min + 1) + min;
+        // Generate a random number with the specified size
+        Random random = new Random();
+        int lowerBound = (int) Math.pow(10, size - 1);
+        int upperBound = (int) Math.pow(10, size) - 1;
 
-	    // Print the generated random number
-	    
-		return randomNumber;
-	}
+        return lowerBound + random.nextInt((int) (upperBound - lowerBound + 1));
+    }
 	
 	public static String randomTokenGenerator() {
 		
@@ -51,13 +48,50 @@ public class Helper {
 		return currentTime;
 	}
   
-	public static LocalDateTime futureTime() {
+	public static LocalDateTime timeChange(String operation , int timeChange) {
 		
 		LocalDateTime currentTime = LocalDateTime.now();
 		
-		LocalDateTime validTill=currentTime.plusMinutes(10);
-		
-		return validTill;
-		
+		if(timeChange>0) {
+			if ("add".equals(operation)) {
+				LocalDateTime validTill=currentTime.plusMinutes(timeChange);
+				return validTill;
+		    }
+			else if("minus".equals(operation)) {
+				LocalDateTime validTill=currentTime.minusMinutes(timeChange);
+				return validTill;
+			}
+			else {
+				throw new IllegalArgumentException("Invalid operation. Please enter 'add' or 'subtract'.");
+			}
+		}
+		else {
+			throw new IllegalArgumentException("Invalid operation. Please enter 'time change value greater than 0'.");
+		}
 	}
+}
+
+class ExpiredOtpException extends RuntimeException {
+    public ExpiredOtpException(String message) {
+        super(message);
+    }
+}
+
+class InvalidOtpException extends RuntimeException {
+    public InvalidOtpException(String message) {
+        super(message);
+    }
+}
+
+class UserIsDeletedException extends RuntimeException {
+    public UserIsDeletedException(String message) {
+        super(message);
+    }
+}
+
+
+class UserNotExistException extends RuntimeException {
+    public UserNotExistException(String message) {
+        super(message);
+    }
 }

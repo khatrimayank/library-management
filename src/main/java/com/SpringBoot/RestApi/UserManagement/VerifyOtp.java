@@ -2,6 +2,8 @@ package com.SpringBoot.RestApi.UserManagement;
 
 public class VerifyOtp {
 
+	public int otp;
+	
 	public String mobileNumber;
 	
 	public String getMobileNo() {
@@ -19,8 +21,6 @@ public class VerifyOtp {
 	public void setOtp(int otp) {
 		this.otp = otp;
 	}
-
-	public int otp;
 	
 	
 }

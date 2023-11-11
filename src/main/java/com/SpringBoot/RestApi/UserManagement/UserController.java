@@ -32,20 +32,6 @@ public class UserController {
 		return userRepo.findAll();
 	}
 
-	//TODO: change this to fetch otp of single user, take user id in query or path param
-	@GetMapping("/user-otp-details")
-	public List<UserOtpRequests> get_all_otp_details() {
-		
-		return otpRepo.findAll();
-	}
-
-	//TODO: same as above like OTP details
-	@GetMapping("/user-tokens")
-	public List<UserTokens> get_all_token_details() {
-		
-		return tokenRepo.findAll();
-	}
-	
 	@PostMapping("/signup")
 	public ResponseEntity<Object> enterUserDetails(@RequestBody UserDetailsInput user){
 		
@@ -53,7 +39,7 @@ public class UserController {
 	
 		LocalDateTime timenow =Helper.currentDateTime();
 		
-		LocalDateTime validTill=Helper.futureTime();
+		LocalDateTime validTill=Helper.timeChange("add",10);
 		
 		userToCreate.setCreatedAt(timenow);
 		userToCreate.setUpdatedAt(timenow);
@@ -61,7 +47,7 @@ public class UserController {
 		
 		UserDetails createdUser = userRepo.save(userToCreate);
 		
-		otp = Helper.randomOtpGenerator(); 
+		otp = Helper.randomOtpGenerator(6); 
 		
 		UserOtpRequests otpId=new UserOtpRequests();
 		
@@ -75,7 +61,7 @@ public class UserController {
 		
 		otpRepo.save(otpId);
 		
-	    return ResponseEntity.ok().body("for adding user with details otp is sent on mobile number and otp is:" +otp);
+	    return ResponseEntity.ok().body("for adding user with Name=" +createdUser.getName()+", Id="+createdUser.getUserId()+"  MobileNumber="+createdUser.getMobileNo()+", and createdAt"+createdUser.getCreatedAt()+", and updatedAt "+createdUser.getUpdatedAt() +", and isDeleted"+createdUser.getIsDeleted()+" And otp is sent on mobile number is:" +otp);
 	    
 	}
 	
@@ -92,47 +78,61 @@ public class UserController {
 			
 			UserDetails userWithDetails=userWithMobileNo.get();
 			
-			long userId=userWithDetails.getUserId();
+			if (userWithDetails.is_deleted==false) {
+				
+				long userId=userWithDetails.getUserId();
+				
+				boolean isDeleted=userWithDetails.getIsDeleted();
 			
-			boolean isDeleted=userWithDetails.getIsDeleted();
+			    UserOtpRequests otpDetailsWithId=otpRepo.findByUserId(userId);
 			
-			UserOtpRequests otpDetailsWithId=otpRepo.findByUserId(userId);
+			    LocalDateTime currentTime=Helper.currentDateTime();
 			
-			LocalDateTime currentTime=Helper.currentDateTime();
+			    LocalDateTime validTill=otpDetailsWithId.getValidTill();
 			
-			LocalDateTime validTill=otpDetailsWithId.getValidTill();
+		      	int comparisonResult=validTill.compareTo(currentTime);
 			
-			int comparisonResult=validTill.compareTo(currentTime);
+			    if(otp==otpDetailsWithId.getOtp() && comparisonResult>=0) {
+				
+			    	String token=Helper.randomTokenGenerator();
+				
+				    LocalDateTime timeOfTokenCreated=Helper.currentDateTime();
+				
+			      	UserTokens tokenDetails = new UserTokens();
+				
+			    	tokenDetails.setUserId(userId);
+				
+				    tokenDetails.setToken(token);
+				
+				    tokenDetails.setCreatedAt(timeOfTokenCreated);
+				
+				    tokenDetails.setUpdatedAt(timeOfTokenCreated);
+				
+				    tokenDetails.setIsDeleted(isDeleted);
+				
+				    tokenRepo.save(tokenDetails);
+				
+				    return ResponseEntity.ok().body("user credentials verified , token is generated and token is:" + token);
+				} 
+			    
+			    else if(otp==otpDetailsWithId.getOtp() && comparisonResult<0) {
+			    	
+			    	throw new ExpiredOtpException ("The provided OTP :" + otp + " has expired.");
+			    }
+			    else {
+			    	throw new InvalidOtpException("mobile number :" +mobileNo + " and otp :" + otp + "mismatched");
+			    }
+			    
+			}   
 			
-			if(otp==otpDetailsWithId.getOtp() && comparisonResult>=0) {
-				
-				String token=Helper.randomTokenGenerator();
-				
-				LocalDateTime timeOfTokenCreated=Helper.currentDateTime();
-				
-				UserTokens tokenDetails = new UserTokens();
-				
-				tokenDetails.setUserId(userId);
-				
-				tokenDetails.setToken(token);
-				
-				tokenDetails.setCreatedAt(timeOfTokenCreated);
-				
-				tokenDetails.setUpdatedAt(timeOfTokenCreated);
-				
-				tokenDetails.setIsDeleted(isDeleted);
-				
-				tokenRepo.save(tokenDetails);
-				
-				return ResponseEntity.ok().body("user credentials verified , token is generated and token is:" + token);
-				
+			else {
+				throw new UserIsDeletedException("For enterd mobile number :" + mobileNo + " user is deleted , so first create user with given mobile number");
 			}
-			
 		}
-		
-		return ResponseEntity.ok().body("couldn't verify credentials , please input correct mobile number with otp within 10 minutes after otp is generated.");
-		
+		else {
+			
+			throw new UserNotExistException("user with entered mobile number :" + mobileNo + " is not exist , please firstly create user with provided mobile number");
+		}
+
 	}
-	
-	
 }
