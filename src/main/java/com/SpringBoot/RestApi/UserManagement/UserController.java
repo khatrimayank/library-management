@@ -39,7 +39,7 @@ public class UserController {
 	
 		LocalDateTime timenow =Helper.currentDateTime();
 		
-		LocalDateTime validTill=Helper.timeChange("add",10);
+		LocalDateTime validTill=Helper.timeChange(TimeOperationEnum.ADD, 10);
 		
 		userToCreate.setCreatedAt(timenow);
 		userToCreate.setUpdatedAt(timenow);
