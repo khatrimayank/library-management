@@ -1,4 +1,17 @@
-package com.SpringBoot.RestApi.UserManagement;
+package com.SpringBoot.RestApi.UserManagement.Controller;
+
+
+import com.SpringBoot.RestApi.UserManagement.Dtos.UserDetailsInput;
+import com.SpringBoot.RestApi.UserManagement.Dtos.VerifyOtpInput;
+import com.SpringBoot.RestApi.UserManagement.Entity.UserDetails;
+import com.SpringBoot.RestApi.UserManagement.Entity.UserOtpRequests;
+import com.SpringBoot.RestApi.UserManagement.Entity.UserTokens;
+import com.SpringBoot.RestApi.UserManagement.Enums.TimeOperationEnum;
+import com.SpringBoot.RestApi.UserManagement.Exceptions.*;
+import com.SpringBoot.RestApi.UserManagement.Repository.UserDetailsRepository;
+import com.SpringBoot.RestApi.UserManagement.Repository.UserOtpRequestsRepository;
+import com.SpringBoot.RestApi.UserManagement.Repository.UserTokensRepository;
+import com.SpringBoot.RestApi.UserManagement.Utils.Helper;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -61,12 +74,11 @@ public class UserController {
 		
 		otpRepo.save(otpId);
 		
-	    return ResponseEntity.ok().body("for adding user with Name=" +createdUser.getName()+", Id="+createdUser.getUserId()+"  MobileNumber="+createdUser.getMobileNo()+", and createdAt"+createdUser.getCreatedAt()+", and updatedAt "+createdUser.getUpdatedAt() +", and isDeleted"+createdUser.getIsDeleted()+" And otp is sent on mobile number is:" +otp);
-	    
+	    return ResponseEntity.ok().body(createdUser);
 	}
 	
 	@PostMapping ("/verify")
-	public ResponseEntity<Object> verifyCredentials (@RequestBody VerifyOtp details ){
+	public ResponseEntity<Object> verifyCredentials (@RequestBody VerifyOtpInput details ){
 		
 		String mobileNo=details.getMobileNo();
 		
@@ -112,12 +124,12 @@ public class UserController {
 				
 				    tokenRepo.save(tokenDetails);
 				
-				    return ResponseEntity.ok().body("user credentials verified , token is generated and token is:" + token);
+				    return ResponseEntity.ok().body(tokenDetails);
 				} 
 			    
 			    else if(otp==otpDetailsWithId.getOtp() && comparisonResult<0) {
 			    	
-			    	throw new ExpiredOtpException ("The provided OTP :" + otp + " has expired.");
+			    	throw new ExpireOtpException ("The provided OTP :" + otp + " has expired.");
 			    }
 			    else {
 			    	throw new InvalidOtpException("mobile number :" +mobileNo + " and otp :" + otp + "mismatched");

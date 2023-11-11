@@ -1,4 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement;
+package com.SpringBoot.RestApi.UserManagement.Dtos;
 
 public class UserDetailsInput {	
 	public String name;
@@ -8,3 +8,4 @@ public class UserDetailsInput {
 	public String role;
 	
 }
+

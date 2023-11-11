@@ -1,7 +1,11 @@
-package com.SpringBoot.RestApi.UserManagement;
+package com.SpringBoot.RestApi.UserManagement.Utils;
+
 
 import java.time.LocalDateTime;
 import java.util.Random;
+
+import com.SpringBoot.RestApi.UserManagement.Enums.TimeOperationEnum;
+
 import java.security.SecureRandom;
 
 public class Helper {
@@ -48,16 +52,16 @@ public class Helper {
 		return currentTime;
 	}
   
-	public static LocalDateTime timeChange(String operation , int timeChange) {
+	public static LocalDateTime timeChange(TimeOperationEnum operation , int timeChange) {
 		
 		LocalDateTime currentTime = LocalDateTime.now();
 		
 		if(timeChange>0) {
-			if ("add".equals(operation)) {
+			if (TimeOperationEnum.ADD.equals(operation)) {
 				LocalDateTime validTill=currentTime.plusMinutes(timeChange);
 				return validTill;
 		    }
-			else if("minus".equals(operation)) {
+			else if(TimeOperationEnum.MINUS.equals(operation)) {
 				LocalDateTime validTill=currentTime.minusMinutes(timeChange);
 				return validTill;
 			}
@@ -71,27 +75,5 @@ public class Helper {
 	}
 }
 
-class ExpiredOtpException extends RuntimeException {
-    public ExpiredOtpException(String message) {
-        super(message);
-    }
-}
-
-class InvalidOtpException extends RuntimeException {
-    public InvalidOtpException(String message) {
-        super(message);
-    }
-}
-
-class UserIsDeletedException extends RuntimeException {
-    public UserIsDeletedException(String message) {
-        super(message);
-    }
-}
 
 
-class UserNotExistException extends RuntimeException {
-    public UserNotExistException(String message) {
-        super(message);
-    }
-}

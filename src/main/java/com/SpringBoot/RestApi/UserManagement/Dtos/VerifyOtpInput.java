@@ -1,6 +1,6 @@
-package com.SpringBoot.RestApi.UserManagement;
+package com.SpringBoot.RestApi.UserManagement.Dtos;
 
-public class VerifyOtp {
+public class VerifyOtpInput {
 
 	public int otp;
 	
@@ -24,3 +24,4 @@ public class VerifyOtp {
 	
 	
 }
+
