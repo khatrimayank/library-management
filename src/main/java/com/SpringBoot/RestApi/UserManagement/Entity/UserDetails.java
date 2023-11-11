@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.SpringBoot.RestApi.UserManagement.Enums.RoleEnum;
+
 @Entity
 @Table(name="user_details")
 public class UserDetails {
@@ -20,7 +22,7 @@ public class UserDetails {
 
 	public String mobileNumber;
 	
-	public String role;
+	public RoleEnum role;
 	
 	public Boolean is_deleted;
 	
@@ -48,11 +50,11 @@ public class UserDetails {
 		this.mobileNumber = mobile_number;
 	}
 
-	public String getRole() {
+	public RoleEnum getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RoleEnum role) {
 		this.role = role;
 	}
 
@@ -82,7 +84,7 @@ public class UserDetails {
 	
 	public UserDetails() {}
 	
-	public UserDetails(String name, String mobile_no, String role) {
+	public UserDetails(String name, String mobile_no, RoleEnum role) {
 		this.name = name;
 		this.mobileNumber = mobile_no;
 		this.role = role;

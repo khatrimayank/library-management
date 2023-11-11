@@ -74,7 +74,7 @@ public class UserController {
 		
 		otpRepo.save(otpId);
 		
-	    return ResponseEntity.ok().body(createdUser);
+	    return (ResponseEntity.ok().body("created user Details :" + createdUser +" /n " + " otp details sent on mobile number is :" + otpId ));
 	}
 	
 	@PostMapping ("/verify")
