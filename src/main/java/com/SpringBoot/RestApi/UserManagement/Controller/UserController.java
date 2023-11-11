@@ -2,6 +2,7 @@ package com.SpringBoot.RestApi.UserManagement.Controller;
 
 
 import com.SpringBoot.RestApi.UserManagement.Dtos.UserDetailsInput;
+import com.SpringBoot.RestApi.UserManagement.Dtos.UserDetailsOutput;
 import com.SpringBoot.RestApi.UserManagement.Dtos.VerifyOtpInput;
 import com.SpringBoot.RestApi.UserManagement.Entity.UserDetails;
 import com.SpringBoot.RestApi.UserManagement.Entity.UserOtpRequests;
@@ -74,7 +75,10 @@ public class UserController {
 		
 		otpRepo.save(otpId);
 		
-	    return (ResponseEntity.ok().body("created user Details :" + createdUser +" /n " + " otp details sent on mobile number is :" + otpId ));
+		UserDetailsOutput outputDto = new UserDetailsOutput(createdUser);
+		outputDto.setOtp(otp);
+		
+	    return (ResponseEntity.ok().body(outputDto));
 	}
 	
 	@PostMapping ("/verify")
@@ -90,7 +94,7 @@ public class UserController {
 			
 			UserDetails userWithDetails=userWithMobileNo.get();
 			
-			if (userWithDetails.is_deleted==false) {
+			if (userWithDetails.isDeleted==false) {
 				
 				long userId=userWithDetails.getUserId();
 				
