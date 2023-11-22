@@ -9,47 +9,66 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="books")
-public class BooksDataTable {
+@Table(name="books_details")
+public class BooksData {
 	
-	@Column
-	private String book_Name;
+	@Column(name="book_name")
+	public String bookName;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int book_id;
+	@Column(name="book_id")
+	public int bookId;
 	
 	@Column
-	private String author;
+	public String author;
 	
 	@Column
-	private String status;
+	public String status;
 	
 	@Column
-	private String category;
+	public String category;
 	
-	BooksDataTable(){
+	@Column
+	public int quantity;
+	
+	
+	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
+	public boolean isDeleted;
+	
+	
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	BooksData(){
 	}
 	
-	public BooksDataTable(String book_Name,String author,String status,String category) {
+	public BooksData(String bookName,String author,String status,String category,int quantity) {
 	
-		this.book_Name=book_Name;
+		this.bookName=bookName;
 		this.author=author;
 		this.status=status;
 		this.category=category;
+		this.quantity=quantity;
 	}
 	
 	public int getId() {
-		return book_id;
+		return bookId;
 	}
 	
 	public String getBookName() {
-		return book_Name;
+		return bookName;
 	}
 	
 
-	public void setBook_Name(String book_Name) {
-		this.book_Name = book_Name;
+	public void setBookName(String book_name) {
+		this.bookName = book_name;
 	}
 
 	public String getStatus() {
@@ -76,6 +95,15 @@ public class BooksDataTable {
 	public String getCategory() {
 		return category;
 	}
+	
+	public int getQuantity() {
+		return quantity;
+	}
+	
+	public void setQuantity(int no) {
+		this.quantity=no;
+	}
+	
 	
 
 }

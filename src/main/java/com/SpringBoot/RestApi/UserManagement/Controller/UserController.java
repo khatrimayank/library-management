@@ -52,7 +52,6 @@ public class UserController {
 		UserDetails userToCreate = new UserDetails(user.name, user.mobileNumber, user.role);
 	
 		LocalDateTime timenow =Helper.currentDateTime();
-		
 		LocalDateTime validTill=Helper.timeChange(TimeOperationEnum.ADD, 10);
 		
 		userToCreate.setCreatedAt(timenow);

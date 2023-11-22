@@ -66,12 +66,27 @@ public class Helper {
 				return validTill;
 			}
 			else {
-				throw new IllegalArgumentException("Invalid operation. Please enter 'add' or 'subtract'.");
+				throw new IllegalArgumentException("Invalid operation. Please enter 'ADD' or 'MINUS'.");
 			}
 		}
 		else {
 			throw new IllegalArgumentException("Invalid operation. Please enter 'time change value greater than 0'.");
 		}
+	}
+	
+
+	public static LocalDateTime returnTime(int timeChange) {
+		
+		LocalDateTime currentTime = LocalDateTime.now();
+		
+		if(timeChange>0) {
+			LocalDateTime validTill=currentTime.plusDays(timeChange);
+			return validTill;
+		}
+		else {
+			throw new IllegalArgumentException("Invalid operation. Please enter 'time change value greater than 0'.");
+		}
+		
 	}
 }
 

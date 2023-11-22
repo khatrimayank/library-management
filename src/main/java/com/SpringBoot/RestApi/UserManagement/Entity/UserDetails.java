@@ -103,4 +103,10 @@ public class UserDetails {
 		this.mobileNumber = mobileNumber;
 		this.role = role;
 	}
+	
+	public void updateDefaultFields(LocalDateTime createdAt, LocalDateTime updatedAt, Boolean isDeletedAt) {
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.isDeleted = isDeletedAt;
+	}
 }
