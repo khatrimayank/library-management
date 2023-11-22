@@ -9,27 +9,41 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.SpringBoot.RestApi.UserManagement.Enums.RoleEnum;
+
 @Entity
 @Table(name="user_details")
 public class UserDetails {
-
+	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	
+	@Column(name="user_id")
 	public long userId;
 	
 	public String name;
 
+	@Column(name="mobile_number")
 	public String mobileNumber;
 	
-	public String role;
+	public RoleEnum role;
 	
-	public Boolean is_deleted;
+	@Column(name="is_deleted")
+	public Boolean isDeleted;
 	
-	public LocalDateTime created_at;
+	@Column(name="created_at")
+	public LocalDateTime createdAt;
 	
-	public LocalDateTime updated_at;
 	
+	@Column(name="updated_at")
+	public LocalDateTime updatedAt;
+
 	public long getUserId() {
 		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {
@@ -40,51 +54,59 @@ public class UserDetails {
 		this.name = name;
 	}
 
-	public String getMobileNo() {
+	public String getMobileNumber() {
 		return mobileNumber;
 	}
 
-	public void setMobileNo(String mobile_number) {
-		this.mobileNumber = mobile_number;
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
 	}
 
-	public String getRole() {
+	public RoleEnum getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RoleEnum role) {
 		this.role = role;
 	}
 
 	public Boolean getIsDeleted() {
-		return is_deleted;
+		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean is_deleted) {
-		this.is_deleted = is_deleted;
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 
 	public void setCreatedAt(LocalDateTime createdAt) {
-		this.created_at = createdAt;
+		this.createdAt = createdAt;
 	}
 
 	public LocalDateTime getUpdatedAt() {
-		return updated_at;
+		return updatedAt;
 	}
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updated_at = updatedAt;
+		this.updatedAt = updatedAt;
 	}
 	
-	public UserDetails() {}
-	
-	public UserDetails(String name, String mobile_no, String role) {
+	public UserDetails() {
+		
+	}
+		
+	public UserDetails(String name, String mobileNumber, RoleEnum role) {
 		this.name = name;
-		this.mobileNumber = mobile_no;
+		this.mobileNumber = mobileNumber;
 		this.role = role;
+	}
+	
+	public void updateDefaultFields(LocalDateTime createdAt, LocalDateTime updatedAt, Boolean isDeletedAt) {
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.isDeleted = isDeletedAt;
 	}
 }

@@ -14,22 +14,26 @@ import javax.persistence.Table;
 public class  UserTokens{
 	
 	@Id
-	private long userId;
+	@Column(name="user_id")
+	public long userId;
 	
-	private String token;
+	public String token;
 	
-	private Boolean is_deleted;
+	@Column(name="is_deleted")
+	public Boolean isDeleted;
 	
-	private LocalDateTime created_at;
+	@Column(name="created_at")
+	public LocalDateTime createdAt;
 	
-	private LocalDateTime updated_at;
+	@Column(name="updated_at")
+	public LocalDateTime updatedAt;
 	
 	public long getUserId() {
 		return userId;
 	}
-	
-	public void setUserId(long id) {
-		this.userId=id;
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getToken() {
@@ -41,28 +45,28 @@ public class  UserTokens{
 	}
 
 	public Boolean getIsDeleted() {
-		return is_deleted;
+		return isDeleted;
 	}
 
 	public void setIsDeleted(Boolean isDeleted) {
-		this.is_deleted = isDeleted;
+		this.isDeleted = isDeleted;
 	}
-
+	
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdatedAt(LocalDateTime update_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
-    
+
 	public UserTokens() {}
 }

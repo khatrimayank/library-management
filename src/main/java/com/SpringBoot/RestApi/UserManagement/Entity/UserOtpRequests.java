@@ -12,47 +12,60 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user_otp_requests")
 public class UserOtpRequests {
-    
+	
+
 	@Id
+	@Column(name="user_id")
 	public long userId;
 	
 	public int otp;
 	
-	public LocalDateTime created_at;
+	@Column(name="created_at")
+	public LocalDateTime createdAt;
 	
-	public LocalDateTime valid_till;
 	
+	@Column(name="valid_till")
+	public LocalDateTime validTill;
+    
 	public long getUserId() {
 		return userId;
 	}
-	
-	public void setUserId(long user_id) {
-		this.userId = user_id;
+
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
+
 
 	public int getOtp() {
 		return otp;
 	}
 
+
 	public void setOtp(int otp) {
 		this.otp = otp;
 	}
 
+
 	public LocalDateTime getCreatedAt() {
-		return created_at;
+		return createdAt;
 	}
+
 
 	public void setCreatedAt(LocalDateTime createdAt) {
-		this.created_at = createdAt;
+		this.createdAt = createdAt;
 	}
+
 
 	public LocalDateTime getValidTill() {
-		return valid_till;
+		return validTill;
 	}
 
+
 	public void setValidTill(LocalDateTime validTill) {
-		this.valid_till = validTill;
+		this.validTill = validTill;
 	}
+	
 
 	public UserOtpRequests() {}
 	
