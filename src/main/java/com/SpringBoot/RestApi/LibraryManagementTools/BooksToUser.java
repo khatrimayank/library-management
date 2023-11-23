@@ -2,7 +2,10 @@ package com.SpringBoot.RestApi.LibraryManagementTools;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +14,10 @@ import javax.persistence.Table;
 public class BooksToUser {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="serial_number")
+	public int serialNumber;
+	
 	public long userId;
 	
     public int bookId;
@@ -21,6 +28,19 @@ public class BooksToUser {
 
 	public LocalDateTime actualReturnTime;
 	
+	
+	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
+	public boolean isDeleted;
+	
+	
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
 	public long getUserId() {
 		return userId;
 	}

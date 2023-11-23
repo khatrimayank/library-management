@@ -1,4 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement.Entity;
+package com.SpringBoot.RestApi.UserManagement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.SpringBoot.RestApi.UserManagement.Enums.RoleEnum;
 
 @Entity
 @Table(name="user_details")

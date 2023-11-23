@@ -1,6 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement.Dtos;
-
-import com.SpringBoot.RestApi.UserManagement.Enums.RoleEnum;
+package com.SpringBoot.RestApi.UserManagement;
 
 public class UserDetailsInput {	
 	public String name;

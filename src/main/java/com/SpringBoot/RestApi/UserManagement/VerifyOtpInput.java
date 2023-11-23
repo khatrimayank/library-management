@@ -1,4 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement.Dtos;
+package com.SpringBoot.RestApi.UserManagement;
 
 public class VerifyOtpInput {
 

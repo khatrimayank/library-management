@@ -1,6 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement.Dtos;
-
-import com.SpringBoot.RestApi.UserManagement.Entity.UserDetails;
+package com.SpringBoot.RestApi.UserManagement;
 
 public class UserDetailsOutput extends UserDetails {
 	private int otp;

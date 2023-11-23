@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.SpringBoot.RestApi.UserManagement.Entity.UserDetails;
-import com.SpringBoot.RestApi.UserManagement.Repository.UserDetailsRepository;
+import com.SpringBoot.RestApi.UserManagement.UserDetails;
+import com.SpringBoot.RestApi.UserManagement.UserDetailsRepository;
 
 
 

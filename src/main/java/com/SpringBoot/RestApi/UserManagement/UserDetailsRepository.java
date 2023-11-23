@@ -1,8 +1,6 @@
-package com.SpringBoot.RestApi.UserManagement.Repository;
+package com.SpringBoot.RestApi.UserManagement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.SpringBoot.RestApi.UserManagement.Entity.UserDetails;
 
 public interface UserDetailsRepository extends JpaRepository<UserDetails,Long> {
 	

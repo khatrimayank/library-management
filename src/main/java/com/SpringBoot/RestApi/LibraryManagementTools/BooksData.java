@@ -36,15 +36,6 @@ public class BooksData {
 	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
 	public boolean isDeleted;
 	
-	
-	
-	public boolean isDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
 
 	BooksData(){
 	}
@@ -56,6 +47,15 @@ public class BooksData {
 		this.status=status;
 		this.category=category;
 		this.quantity=quantity;
+	}
+	
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 	public int getId() {
@@ -103,7 +103,5 @@ public class BooksData {
 	public void setQuantity(int no) {
 		this.quantity=no;
 	}
-	
-	
 
 }

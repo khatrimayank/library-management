@@ -2,7 +2,14 @@ package com.SpringBoot.RestApi.LibraryManagementTools;
 
 public class BookIsNotIssuedToUserException extends RuntimeException {
 	
-	public BookIsNotIssuedToUserException(String message) {
+	private final int errorCode;
+
+	public BookIsNotIssuedToUserException(String message,int errorCode) {
 		super(message);
+	    this.errorCode=errorCode;
 	}
+	
+	public int getErrorCode() {
+        return errorCode;
+    }
 }

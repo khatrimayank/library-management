@@ -1,11 +1,8 @@
-package com.SpringBoot.RestApi.UserManagement.Utils;
+package com.SpringBoot.RestApi.UserManagement;
 
 
 import java.time.LocalDateTime;
 import java.util.Random;
-
-import com.SpringBoot.RestApi.UserManagement.Enums.TimeOperationEnum;
-
 import java.security.SecureRandom;
 
 public class Helper {

@@ -4,8 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BooksToUserRepository extends JpaRepository<BooksToUser,Long> {
+public interface BooksToUserRepository extends JpaRepository<BooksToUser,Integer> {
 	
-	Optional<BooksToUser> findBy(int bookId , long userId);
+	
+	
+	Optional<BooksToUser> findByBookIdAndUserIdAndIsDeleted(int bookId , long userId ,boolean isDeleted);
 
 }

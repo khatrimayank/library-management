@@ -1,4 +1,4 @@
-package com.SpringBoot.RestApi.UserManagement.Entity;
+package com.SpringBoot.RestApi.UserManagement;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
