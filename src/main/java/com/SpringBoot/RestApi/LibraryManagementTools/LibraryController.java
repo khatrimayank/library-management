@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.SpringBoot.RestApi.UserManagement.Helper;
 import com.SpringBoot.RestApi.UserManagement.RoleEnum;
+import com.SpringBoot.RestApi.UserManagement.TokenValueNotProvidedException;
 import com.SpringBoot.RestApi.UserManagement.UserDetails;
 import com.SpringBoot.RestApi.UserManagement.UserDetailsRepository;
 import com.SpringBoot.RestApi.UserManagement.UserTokens;
@@ -84,8 +85,12 @@ public class LibraryController {
 
 
 	@PostMapping("/books/v1")
-	public ResponseEntity<Object> bookToCreate(@RequestBody BooksData book , @RequestHeader ("tokenKey")  String tokenValue) {
+	public ResponseEntity<Object> bookToCreate(@RequestBody BooksData book , @RequestHeader (name="tokenKey" , required = false)  String tokenValue) {
 
+		if(tokenValue==null || tokenValue.isEmpty()) {
+			
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);		}
+		
 		Optional<UserTokens> isTokenDetails = tokenRepo.findByToken(tokenValue);
 
 		if(! isTokenDetails.isPresent()) {
@@ -115,7 +120,10 @@ public class LibraryController {
 
 
 	@DeleteMapping("/books/v1/{bookId}")
-	public void deleteBook(@PathVariable int bookId,@RequestHeader ("tokenKey")  String tokenValue) {
+	public void deleteBook(@PathVariable int bookId,@RequestHeader (name="tokenKey" , required = false)  String tokenValue) {
+		
+		if(tokenValue==null || tokenValue.isEmpty()) {
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);		}
 
 		Optional<UserTokens> isTokenDetails = tokenRepo.findByToken(tokenValue);
 
@@ -158,7 +166,12 @@ public class LibraryController {
 
 
 	@PutMapping("/books/v1/{bookId}")
-	public ResponseEntity<Object> updateBookDetails (@PathVariable int bookId,@RequestBody BooksDataInput bookData,@RequestHeader ("tokenKey")  String tokenValue){
+	public ResponseEntity<Object> updateBookDetails (@PathVariable int bookId,@RequestBody BooksDataInput bookData,@RequestHeader (name="tokenKey" , required = false)  String tokenValue){
+
+		if(tokenValue==null || tokenValue.isEmpty()) {
+			
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);		}
+
 
        Optional<UserTokens> isToken =tokenRepo.findByToken(tokenValue);
 
@@ -207,7 +220,11 @@ public class LibraryController {
 
 	@PatchMapping("/books/v1/{bookId}")
 
-	public ResponseEntity<Object> updateBookPartially(@PathVariable int bookId , @RequestBody BooksDataInput bookData , @RequestHeader ("tokenKey")  String tokenValue){
+	public ResponseEntity<Object> updateBookPartially(@PathVariable int bookId , @RequestBody BooksDataInput bookData , @RequestHeader (name="tokenKey" , required = false)  String tokenValue){
+
+		if(tokenValue==null || tokenValue.isEmpty()) {
+			
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);		}
 
 		Optional<UserTokens> isToken =tokenRepo.findByToken(tokenValue);
 
@@ -276,6 +293,9 @@ public class LibraryController {
 
 	public ResponseEntity<Object> issueBook(@PathVariable int bookId , @RequestHeader ("tokenKey") String tokenValue) {
 
+		if(tokenValue==null || tokenValue.isEmpty()) {
+			
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);		}
 		Optional<UserTokens> isTokenDetails = tokenRepo.findByToken(tokenValue);
 
 		if(! isTokenDetails.isPresent()) {
@@ -342,6 +362,11 @@ public class LibraryController {
 	@PostMapping("/books/v1/return/{bookId}")
 	public void returnBook(@PathVariable int bookId,@RequestHeader ("tokenKey")  String tokenValue , @RequestParam (required = false) Integer book_Id , @RequestParam (required = false) Long user_Id ) {
 
+		if(tokenValue==null || tokenValue.isEmpty()  ) {
+			
+			throw new TokenValueNotProvidedException(("Token not provided for user verification  , please provide valid Token "),400);
+		}
+		
         Optional<UserTokens> isTokenDetails = tokenRepo.findByToken(tokenValue);
 
 		if(! isTokenDetails.isPresent()) {

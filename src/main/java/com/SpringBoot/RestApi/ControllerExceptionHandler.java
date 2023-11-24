@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.SpringBoot.RestApi.UserManagement.UserNotExistException;
 import com.SpringBoot.RestApi.UserManagement.UserIsDeletedException;
 import com.SpringBoot.RestApi.UserManagement.InvalidOtpException;
+import com.SpringBoot.RestApi.UserManagement.TokenValueNotProvidedException;
 import com.SpringBoot.RestApi.UserManagement.ExpireOtpException;
 
 
@@ -27,6 +28,11 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(UserIsDeletedException.class)
     public ResponseEntity<String> handleUserIsDeletedException(UserIsDeletedException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()+ "/n error code: " + ex.getErrorCode());
+    }
+    
+    @ExceptionHandler(TokenValueNotProvidedException.class)
+    public ResponseEntity<String> handleTokenValueNotProvidedException(TokenValueNotProvidedException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage() + "/n error code: " + ex.getErrorCode());
     }
     
     @ExceptionHandler(InvalidOtpException.class)
