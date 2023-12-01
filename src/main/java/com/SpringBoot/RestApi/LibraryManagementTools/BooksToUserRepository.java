@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface BooksToUserRepository extends JpaRepository<BooksToUser,Integer> {
 	
-	Optional<BooksToUser> findByBookIdAndUserIdAndIsDeleted(int bookId , long userId ,boolean isDeleted);
+	Optional<BooksToUser> findByBookIdAndUserIdAndIsReturnedFalse(int bookId , long userId);
 	
 	@Query("SELECT b FROM BooksToUser b " +
 		   "WHERE (b.actualReturnTime > b.returnTime) OR (b.actualReturnTime IS NULL AND CURRENT_TIMESTAMP > b.returnTime)"+

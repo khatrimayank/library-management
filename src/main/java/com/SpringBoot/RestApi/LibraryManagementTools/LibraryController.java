@@ -351,11 +351,11 @@ public class LibraryController {
 
 		long userId = tokenDetails.getUserId();
 		
-		Optional<BooksToUser> isBookAlreadyIssued = booksToUserRepo.findByBookIdAndUserIdAndIsDeleted(bookId,userId,false);
+		Optional<BooksToUser> isBookAlreadyIssued = booksToUserRepo.findByBookIdAndUserIdAndIsReturnedFalse(bookId,userId);
 		
 		if(isBookAlreadyIssued.isPresent()) {
 			
-			throw new BookNotAvailableException(("Book with Book Id : " + bookId + "Is already issued to you "),400);
+			throw new BookNotAvailableException(("Book with Book Id : " + bookId + " Is already issued to you "),400);
 			
 		}
 
@@ -389,12 +389,18 @@ public class LibraryController {
     	book.setQuantity(quantityAvailableBefore-1);
 
 
-    	int quantityAvailableAfter = book.getQuantity();
+    	int quantityAvailableAfter = quantityAvailableBefore-1;
 
     	if(quantityAvailableAfter>0) {
     		
     		book.setStatus(EnumStatus.AVAILABLE);
     	
+    	}
+    	
+    	if(quantityAvailableAfter<=0) {
+    		
+    		book.setStatus(EnumStatus.NOTAVAILABLE);
+    		
     	}
 
     	bookRepo.save(book);
@@ -403,7 +409,7 @@ public class LibraryController {
 	}
 
 	@PostMapping("/books/v1/return/{bookId}")
-	public void returnBook(@PathVariable int bookId,@RequestHeader ("tokenKey")  String tokenValue , @RequestParam (required = false) Integer book_Id , @RequestParam (required = false) Long user_Id ) {
+	public ResponseEntity<Object> returnBook(@PathVariable int bookId,@RequestHeader ("tokenKey")  String tokenValue , @RequestParam (required = false) Integer book_Id , @RequestParam (required = false) Long user_Id ) {
 
 		if(tokenValue==null || tokenValue.isEmpty()  ) {
 			
@@ -421,7 +427,7 @@ public class LibraryController {
 
 		long userId = tokenDetails.getUserId();
 
-		Optional<BooksToUser> isBook = booksToUserRepo.findByBookIdAndUserIdAndIsDeleted(bookId,userId,false);
+		Optional<BooksToUser> isBook = booksToUserRepo.findByBookIdAndUserIdAndIsReturnedFalse(bookId,userId);
 
 		if (! isBook.isPresent()  ) {
 			
@@ -433,7 +439,7 @@ public class LibraryController {
 
         bookToUser.setActualReturnTime(Helper.currentDateTime());
         
-        bookToUser.setIsDeleted(true);
+        bookToUser.setIsReturned(true);
         
         booksToUserRepo.save(bookToUser);
 
@@ -448,6 +454,9 @@ public class LibraryController {
     	book.setStatus(EnumStatus.AVAILABLE);
 
     	bookRepo.save(book);
-	}
+    	
+    	return ResponseEntity.ok().body("user with user Id :" + userId + " return book with bookId : " + bookId );	
+    }
+	
 	
 }
