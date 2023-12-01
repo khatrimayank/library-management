@@ -15,18 +15,18 @@ public class UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	
 	@Column(name="user_id")
 	public long userId;
 	
+	@Column(columnDefinition="VARCHAR(25)")
 	public String name;
 
-	@Column(name="mobile_number")
+	@Column(name="mobile_number" ,columnDefinition="VARCHAR(15)")
 	public String mobileNumber;
 	
 	public RoleEnum role;
 	
-	@Column(name="is_deleted")
+	@Column(name="is_deleted" , columnDefinition = "BOOLEAN CHECK (is_deleted IN (true,false))")
 	public Boolean isDeleted;
 	
 	@Column(name="created_at")

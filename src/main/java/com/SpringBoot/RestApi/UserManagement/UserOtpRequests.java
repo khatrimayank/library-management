@@ -18,6 +18,7 @@ public class UserOtpRequests {
 	@Column(name="user_id")
 	public long userId;
 	
+	
 	public int otp;
 	
 	@Column(name="created_at")

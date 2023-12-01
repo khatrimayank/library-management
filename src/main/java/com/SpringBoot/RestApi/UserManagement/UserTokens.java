@@ -17,6 +17,7 @@ public class  UserTokens{
 	@Column(name="user_id")
 	public long userId;
 	
+	@Column(name="token")
 	public String token;
 	
 	@Column(name="is_deleted")

@@ -19,10 +19,10 @@ public interface BooksRepository extends JpaRepository<BooksData,Integer> {
 	List<BooksData> findEntitiesWithParams(
 			@Param("bookName") String bookName,
 	        @Param("author") String author,
-	        @Param("status") String status,
+	        @Param("status") EnumStatus status,
 	        @Param("category") String category,
             @Param("quantity") Integer quantity);
 	
-	Optional<BooksData> findByBookId(int bookId);
+	Optional<BooksData> findByBookIdAndIsDeletedFalse(int bookId);
 
 }

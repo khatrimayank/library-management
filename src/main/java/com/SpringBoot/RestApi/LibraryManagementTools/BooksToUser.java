@@ -29,16 +29,16 @@ public class BooksToUser {
 	public LocalDateTime actualReturnTime;
 	
 	
-	@Column(name="is_deleted", columnDefinition = "BOOLEAN DEFAULT false")
-	public boolean isDeleted;
+	@Column(name="is_returned", columnDefinition = "BOOLEAN DEFAULT false")
+	public boolean isReturned;
 	
 	
-	public boolean isDeleted() {
-		return isDeleted;
+	public boolean isReturned() {
+		return isReturned;
 	}
 
-	public void setIsDeleted(boolean isDeleted) {
-		this.isDeleted = isDeleted;
+	public void setIsReturned(boolean isReturned) {
+		this.isReturned = isReturned;
 	}
 
 	public long getUserId() {
