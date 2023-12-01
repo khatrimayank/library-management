@@ -119,7 +119,7 @@ public class LibraryController {
 
 		long userId = tokenDetails.getUserId();
 
-		UserDetails userById = userRepo.findByIdAndIsDeletedFalse(userId);
+		UserDetails userById = userRepo.findByUserIdAndIsDeletedFalse(userId);
 
 		if (userById.getRole().equals(RoleEnum.ADMIN) || userById.getRole().equals(RoleEnum.LIBRARIAN)) {
 			
@@ -164,7 +164,7 @@ public class LibraryController {
 
 		long userId = tokenDetails.getUserId();
 
-		UserDetails userById = userRepo.findByIdAndIsDeletedFalse(userId);
+		UserDetails userById = userRepo.findByUserIdAndIsDeletedFalse(userId);
 
 		System.out.println(userById.getRole());
 		System.out.println(RoleEnum.LIBRARIAN);
@@ -210,7 +210,7 @@ public class LibraryController {
 
 	   long userId = tokenDetails.getUserId();
 
-	   UserDetails existingUser= userRepo.findByIdAndIsDeletedFalse(userId);
+	   UserDetails existingUser= userRepo.findByUserIdAndIsDeletedFalse(userId);
 
 	   if(! existingUser.role.equals(RoleEnum.ADMIN) && ! existingUser.role.equals(RoleEnum.LIBRARIAN)) {
 
@@ -272,7 +272,7 @@ public class LibraryController {
 
 	   long userId = tokenDetails.getUserId();
 
-	   UserDetails existingUser= userRepo.findByIdAndIsDeletedFalse(userId);
+	   UserDetails existingUser= userRepo.findByUserIdAndIsDeletedFalse(userId);
 
 	   if(! existingUser.role.equals(RoleEnum.ADMIN) && ! existingUser.role.equals(RoleEnum.LIBRARIAN)) {
 

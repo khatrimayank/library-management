@@ -8,6 +8,6 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails,Long> {
 	
 	UserDetails findByMobileNumberAndIsDeletedFalse(String mobileNumber);
 	
-    UserDetails findByIdAndIsDeletedFalse(long userId);
+    UserDetails findByUserIdAndIsDeletedFalse(long userId);
 
 }

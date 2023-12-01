@@ -213,7 +213,7 @@ public class UserController {
 
 	    long userId =userTokenDetails.getUserId();
 	    
-	    Optional<UserDetails> isUserAlreadyExist =Optional.ofNullable(userRepo.findByIdAndIsDeletedFalse(userId));
+	    Optional<UserDetails> isUserAlreadyExist =Optional.ofNullable(userRepo.findByUserIdAndIsDeletedFalse(userId));
 	    
 		if(! isUserAlreadyExist.isPresent()) {
 
