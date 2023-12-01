@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="books_details")
 public class BooksData {
 	
-	@Column(name="book_name")
+	@Column(name="book_name" , columnDefinition="VARCHAR(255)")
 	public String bookName;
 	
 	@Id
@@ -20,16 +20,16 @@ public class BooksData {
 	@Column(name="book_id")
 	public int bookId;
 	
-	@Column
+	@Column(columnDefinition="VARCHAR(255)")
 	public String author;
 	
 	@Column
-	public String status;
+	public EnumStatus status;
 	
-	@Column
+	@Column(columnDefinition="VARCHAR(255)")
 	public String category;
 	
-	@Column
+	@Column(columnDefinition="INTEGER")
 	public int quantity;
 	
 	
@@ -40,7 +40,7 @@ public class BooksData {
 	BooksData(){
 	}
 	
-	public BooksData(String bookName,String author,String status,String category,int quantity) {
+	public BooksData(String bookName,String author,EnumStatus status,String category,int quantity) {
 	
 		this.bookName=bookName;
 		this.author=author;
@@ -71,11 +71,11 @@ public class BooksData {
 		this.bookName = book_name;
 	}
 
-	public String getStatus() {
+	public EnumStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(EnumStatus status) {
 		this.status = status;
 	}
 

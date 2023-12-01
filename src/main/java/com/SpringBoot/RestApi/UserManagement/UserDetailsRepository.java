@@ -4,6 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserDetailsRepository extends JpaRepository<UserDetails,Long> {
 	
-	UserDetails findByMobileNumber(String mobileNumber);
+	//UserDetails findByMobileNumber(String mobileNumber);
+	
+	UserDetails findByMobileNumberAndIsDeletedFalse(String mobileNumber);
+	
+    UserDetails findByIdAndIsDeletedFalse(long userId);
 
 }

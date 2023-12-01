@@ -4,7 +4,7 @@ public class BooksDataInput {
 	
 	public String bookName;
 	
-	public String status;
+	public EnumStatus status;
 	
 	public String author;
 	
